@@ -73,6 +73,36 @@ const deur = new THREE.Mesh(
 deur.position.set(0, 1.4, 3.05);
 huis.add(deur);
 
+// Ramen (met een kozijn)
+const raamMat = new THREE.MeshStandardMaterial({ color: 0xbfe6ff, emissive: 0x335577, emissiveIntensity: 0.6 });
+const kozijnMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
+for (const x of [-2.4, 2.4]) {
+  const kozijn = new THREE.Mesh(new THREE.BoxGeometry(1.7, 1.7, 0.12), kozijnMat);
+  const raam = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.4, 0.14), raamMat);
+  kozijn.position.set(x, 1.6, 3.02);
+  raam.position.set(x, 1.6, 3.04);
+  huis.add(kozijn, raam);
+}
+
+// Schoorsteen
+const schoorsteen = new THREE.Mesh(
+  new THREE.BoxGeometry(0.9, 2.2, 0.9),
+  new THREE.MeshStandardMaterial({ map: steenTex, color: 0xaa6644 })
+);
+schoorsteen.position.set(-2, 7, -1);
+schoorsteen.castShadow = true;
+huis.add(schoorsteen);
+
+// Pad naar de deur
+const pad = new THREE.Mesh(
+  new THREE.PlaneGeometry(1.8, 14),
+  new THREE.MeshStandardMaterial({ color: 0xc9b48a })
+);
+pad.rotation.x = -Math.PI / 2;
+pad.position.set(0, 0.02, 10);
+pad.receiveShadow = true;
+huis.add(pad);
+
 scene.add(huis);
 
 
