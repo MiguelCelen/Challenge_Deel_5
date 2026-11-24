@@ -22,10 +22,22 @@ zon.shadow.camera.left = -30; zon.shadow.camera.right = 30;
 zon.shadow.camera.top = 30; zon.shadow.camera.bottom = -30;
 scene.add(zon);
 
+// ---------- Texturen ----------
+const loader = new THREE.TextureLoader();
+const grasTex = loader.load('/textures/grass.jpg');
+grasTex.wrapS = grasTex.wrapT = THREE.RepeatWrapping;
+grasTex.repeat.set(30, 30);
+grasTex.colorSpace = THREE.SRGBColorSpace;
+
+const steenTex = loader.load('/textures/brick.jpg');
+steenTex.wrapS = steenTex.wrapT = THREE.RepeatWrapping;
+steenTex.repeat.set(3, 2);
+steenTex.colorSpace = THREE.SRGBColorSpace;
+
 // ---------- Grond ----------
 const grond = new THREE.Mesh(
   new THREE.CircleGeometry(80, 64),
-  new THREE.MeshStandardMaterial({ color: 0x3f7d2a })
+  new THREE.MeshStandardMaterial({ map: grasTex })
 );
 grond.rotation.x = -Math.PI / 2;
 grond.receiveShadow = true;
@@ -37,7 +49,7 @@ const huis = new THREE.Group();
 
 const muren = new THREE.Mesh(
   new THREE.BoxGeometry(8, 5, 6),
-  new THREE.MeshStandardMaterial({ color: 0xffb08a })
+  new THREE.MeshStandardMaterial({ map: steenTex, color: 0xffb08a }) // kleur x textuur
 );
 muren.position.y = 2.5;
 muren.castShadow = true;
