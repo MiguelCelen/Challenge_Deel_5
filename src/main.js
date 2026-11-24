@@ -31,6 +31,39 @@ grond.rotation.x = -Math.PI / 2;
 grond.receiveShadow = true;
 scene.add(grond);
 
+// ---------- Huis (geometrieën, kleur + textuur) ----------
+const huis = new THREE.Group();
+
+
+const muren = new THREE.Mesh(
+  new THREE.BoxGeometry(8, 5, 6),
+  new THREE.MeshStandardMaterial({ color: 0xffb08a })
+);
+muren.position.y = 2.5;
+muren.castShadow = true;
+huis.add(muren);
+
+// Dak: piramide van een kegel met 4 zijden
+const dak = new THREE.Mesh(
+  new THREE.ConeGeometry(6.4, 3, 4),
+  new THREE.MeshStandardMaterial({ color: 0x8b2e2e })
+);
+dak.position.y = 6.5;
+dak.rotation.y = Math.PI / 4;
+dak.castShadow = true;
+huis.add(dak);
+
+// Deur
+const deur = new THREE.Mesh(
+  new THREE.BoxGeometry(1.4, 2.8, 0.2),
+  new THREE.MeshStandardMaterial({ color: 0x5a3a1e })
+);
+deur.position.set(0, 1.4, 3.05);
+huis.add(deur);
+
+scene.add(huis);
+
+
 function animate(time) {
   camera.lookAt(0, 3, 0);
 
