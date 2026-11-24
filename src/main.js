@@ -135,8 +135,29 @@ for (let i = 0; i < 40; i++) {
   scene.add(boom);
 }
 
+// ---------- Wolken in een lus ----------
+const wolken = [];
+const wolkMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
+for (let i = 0; i < 12; i++) {
+  const wolk = new THREE.Group();
+  for (let j = 0; j < 4; j++) {
+    const bol = new THREE.Mesh(new THREE.SphereGeometry(1.5 + Math.random(), 16, 16), wolkMat);
+    bol.position.set(j * 1.8 - 3, Math.random(), Math.random());
+    wolk.add(bol);
+  }
+  wolk.position.set((Math.random() - 0.5) * 120, 14 + Math.random() * 8, (Math.random() - 0.5) * 120);
+  scene.add(wolk);
+  wolken.push(wolk);
+}
+
 function animate(time) {
   camera.lookAt(0, 3, 0);
+
+  // wolken drijven
+  wolken.forEach((wolk) => {
+    wolk.position.x += 0.02;
+    if (wolk.position.x > 70) wolk.position.x = -70;
+  });
 
   renderer.render(scene, camera);
 }
