@@ -1,12 +1,13 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import gsap from 'gsap';
 
 // ---------- Scene, camera, renderer ----------
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x87ceeb);
 
 const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 500);
-camera.position.set(0, 5, 17);
+camera.position.set(0, 30, 90); // start ver weg
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(innerWidth, innerHeight);
@@ -167,6 +168,10 @@ new GLTFLoader().load('/models/flamingo.glb', (gltf) => {
     flamingos.push(flamingo);
   }
 });
+
+// ---------- Animaties ----------
+// Camera vliegt van ver weg naar vlak voor het huis (GSAP)
+gsap.to(camera.position, { x: 0, y: 5, z: 17, duration: 8, ease: 'power2.out' });
 
 function animate(time) {
   camera.lookAt(0, 3, 0);
