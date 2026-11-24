@@ -73,6 +73,14 @@ const deur = new THREE.Mesh(
 deur.position.set(0, 1.4, 3.05);
 huis.add(deur);
 
+// Witte kaart met mijn naam (afbeelding als textuur)
+const kaart = new THREE.Mesh(
+  new THREE.PlaneGeometry(2.4, 1.2),
+  new THREE.MeshStandardMaterial({ map: loader.load('/textures/naamkaart.png') })
+);
+kaart.position.set(2.4, 3.2, 3.02);
+huis.add(kaart);
+
 // Ramen (met een kozijn)
 const raamMat = new THREE.MeshStandardMaterial({ color: 0xbfe6ff, emissive: 0x335577, emissiveIntensity: 0.6 });
 const kozijnMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
