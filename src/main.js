@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 // ---------- Scene, camera, renderer ----------
 const scene = new THREE.Scene();
@@ -155,6 +156,18 @@ for (let i = 0; i < 12; i++) {
   wolken.push(wolk);
 }
 
+// ---------- 3D-model (GLB): flamingo's in een lus ----------
+const flamingos = [];
+new GLTFLoader().load('/models/flamingo.glb', (gltf) => {
+  for (let i = 0; i < 3; i++) {
+    const flamingo = gltf.scene.clone();
+    flamingo.scale.setScalar(0.04);
+    flamingo.position.y = 7 + i * 2;
+    scene.add(flamingo);
+    flamingos.push(flamingo);
+  }
+});
+
 function animate(time) {
   camera.lookAt(0, 3, 0);
 
@@ -162,6 +175,14 @@ function animate(time) {
   wolken.forEach((wolk) => {
     wolk.position.x += 0.02;
     if (wolk.position.x > 70) wolk.position.x = -70;
+  });
+
+  // flamingo's vliegen rondjes om het huis
+  flamingos.forEach((flamingo, i) => {
+    const hoek = time / 2000 + i * 2;
+    flamingo.position.x = Math.cos(hoek) * (12 + i * 4);
+    flamingo.position.z = Math.sin(hoek) * (12 + i * 4);
+    flamingo.rotation.y = -hoek;
   });
 
   renderer.render(scene, camera);
