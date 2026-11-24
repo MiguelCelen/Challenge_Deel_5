@@ -114,6 +114,11 @@ huis.add(pad);
 scene.add(huis);
 
 
+// Zon
+const zonBol = new THREE.Mesh(new THREE.SphereGeometry(5, 32, 32), new THREE.MeshBasicMaterial({ color: 0xfff0a0, fog: false }));
+zonBol.position.set(60, 55, -70);
+scene.add(zonBol);
+
 // ---------- Bomen in een lus ----------
 const stamGeo = new THREE.CylinderGeometry(0.25, 0.35, 1.5, 8);
 const stamMat = new THREE.MeshStandardMaterial({ color: 0x6b4423 });
