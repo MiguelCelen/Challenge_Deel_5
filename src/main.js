@@ -114,6 +114,27 @@ huis.add(pad);
 scene.add(huis);
 
 
+// ---------- Bomen in een lus ----------
+const stamGeo = new THREE.CylinderGeometry(0.25, 0.35, 1.5, 8);
+const stamMat = new THREE.MeshStandardMaterial({ color: 0x6b4423 });
+const bladGeo = new THREE.ConeGeometry(1.4, 3.5, 8);
+const bladMat = new THREE.MeshStandardMaterial({ color: 0x1f7a32 });
+
+for (let i = 0; i < 40; i++) {
+  const hoek = Math.random() * Math.PI * 2;
+  const afstand = 12 + Math.random() * 55;
+  const boom = new THREE.Group();
+  const stam = new THREE.Mesh(stamGeo, stamMat);
+  stam.position.y = 0.75;
+  const blad = new THREE.Mesh(bladGeo, bladMat);
+  blad.position.y = 3.2;
+  stam.castShadow = blad.castShadow = true;
+  boom.add(stam, blad);
+  boom.position.set(Math.cos(hoek) * afstand, 0, Math.sin(hoek) * afstand);
+  boom.scale.setScalar(0.7 + Math.random() * 0.8);
+  scene.add(boom);
+}
+
 function animate(time) {
   camera.lookAt(0, 3, 0);
 
